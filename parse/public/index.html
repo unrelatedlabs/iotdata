@@ -1,0 +1,56 @@
+
+<html>
+  <head>
+    <title>IOT Data</title>
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+    <div class='container'>
+        <h1>IOT Data</h1>
+
+        <div>
+        <h4>Update a value</h4>
+        <p>
+        With query parameters: <code>http://iotdata.parseapp.com/<b>thingie-name</b>?key=value</code>
+        </p>
+        <p>
+        With json parameters: <code>http://iotdata.parseapp.com/<b>thingie-name</b>?json={"key":value}</code>
+        </p>
+
+        <p>
+        HTTP POST application/json: <code>curl -d '{"key":value}' -H "Content-Type: application/json" http://iotdata.parseapp.com/<b>thingie-name</b></code>
+        </p>
+
+        <h4>Get last value</h4>
+        <p>
+        <code>http://iotdata.parseapp.com/last/<b>thingie-name</b></code>
+        </p>
+
+        <h4>Get history</h4>
+        <p>
+        <code>http://iotdata.parseapp.com/<b>thingie-name</b></code>
+        </p>
+
+        <h4>Get history in .csv</h4>
+        <p>
+        <code>http://iotdata.parseapp.com/csv/<b>thingie-name</b></code>
+        </p>
+
+        <h4>Display last value and chart</h4>
+        <p>
+        <code>http://iotdata.parseapp.com/thingie/<b>thingie-name</b></code>
+        </p>
+
+        </div>
+    </div>
+  </body>
+</html>

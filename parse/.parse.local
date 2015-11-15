@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "iotdata"
+    },
+    "iotdata": {
+      "applicationId": "OYzTGREvpW2EBf8KTKLGjB76wL8xSOkpPNMixFgy"
+    }
+  }
+}

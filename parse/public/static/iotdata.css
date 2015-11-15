@@ -1,0 +1,16 @@
+body{
+	font-family: HelveticaNeue-Light,HelveticaNeue;
+}
+
+.container{
+	max-width: 720px;
+	margin:auto;
+}
+
+.chart{
+	width: 100%;
+}
+
+.value{
+	font-size: 32px;
+}

@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= thing %></title>
+
+    <script type="text/javascript" src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+
+
+	    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+	
+	<script type="text/javascript" src="/static/iotdata.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="/static/iotdata.css">
+
+
+
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+  <script type="text/javascript">
+
+    var thing = "<%=thing %>";
+
+    google.load('visualization', '1.1', {packages: ['line']});
+    google.setOnLoadCallback(loadData);
+
+
+    function loadData(){
+    	$.get("/" + thing).then(function(points){
+    		updateData(points);
+    	});
+    }
+
+    function updateData(points){
+    	var first = points[0];
+      	var keys = Object.keys(first);
+      	keys.splice( keys.indexOf("timestamp"),1);
+
+      	for( var keyi in keys){
+      		var key = keys[keyi];
+      		drawChart(points,key);
+      	}
+    }
+
+    function drawChart(points,column) {
+
+      var holder = $(".values .holder.series-" + column);
+      if( holder.length == 0 ){
+      	holder = $("<div/>").addClass("holder").addClass(".series-"+column);
+
+      	holder.append( $("<div/>").addClass("value"));
+      	holder.append( $("<div/>").addClass("chart"));
+
+      	$(".values").append(holder);
+      }
+
+
+      var first = points[0];
+
+      $(".result").text( "" + first[column]  || '' );
+
+
+      var data = new google.visualization.DataTable();
+
+      data.addColumn("datetime","timestamp");
+      data.addColumn("number",column);
+
+
+      
+      for( var i in points){
+      	var o = points[i];
+
+      	var line = [ new Date(o.timestamp), o[column] || 0];
+
+      	data.addRows([line]);
+      }
+      
+
+      var formatter = new google.visualization.NumberFormat({ 
+		  pattern: '0.00', 
+	  });
+
+	  formatter.format(data,1);
+
+
+      var options = {
+        chart: {
+          title: column,
+          //subtitle: 'Last updated ' + points[0].timestamp,
+        },
+        height: 300,
+        legend: {position: 'none'}
+
+      };
+
+      var chart = new google.charts.Line( holder.find(".chart")[0] );
+
+      chart.draw(data, options);
+
+      holder.find(".value").text(first[column]);
+
+    }
+  </script>
+
+
+
+  </head>
+  <body>
+  	<div class='container'>
+  		   <h1><%= thing %></h1>
+  		   <div class='values'></div>
+  		   <!-- <div class="result"></div>
+  		   <div class='chart'></div> -->
+
+  	</div>
+  </body>
+</html>
